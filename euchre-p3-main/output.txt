@@ -107,14 +107,14 @@ Queen of Diamonds played by Gabriel
 Gabriel takes the trick
 
 Jack of Hearts led by Gabriel
-Nine of Clubs played by Herb
+Nine of Spades played by Herb
 Ten of Diamonds played by Edsger
 Jack of Diamonds played by Fran
 Fran takes the trick
 
 Jack of Spades led by Fran
 King of Diamonds played by Gabriel
-Nine of Spades played by Herb
+Nine of Clubs played by Herb
 Nine of Diamonds played by Edsger
 Gabriel takes the trick
 
@@ -267,7 +267,7 @@ Edsger takes the trick
 King of Clubs led by Edsger
 Ace of Clubs played by Fran
 Nine of Hearts played by Gabriel
-Nine of Diamonds played by Herb
+Nine of Spades played by Herb
 Gabriel takes the trick
 
 Ace of Hearts led by Gabriel
@@ -278,7 +278,7 @@ Fran takes the trick
 
 Queen of Clubs led by Fran
 Ten of Hearts played by Gabriel
-Nine of Spades played by Herb
+Nine of Diamonds played by Herb
 Jack of Clubs played by Edsger
 Gabriel takes the trick
 

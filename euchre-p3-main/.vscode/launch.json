@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/samba/Documents/EEcs v280/euchre-starter",
-      "program": "/Users/samba/Documents/EEcs v280/euchre-starter/build/Debug/outDebug"
+      "cwd": "/Users/trumig/euchre-p3-main",
+      "program": "/Users/trumig/euchre-p3-main/build/Debug/outDebug"
     }
   ]
 }

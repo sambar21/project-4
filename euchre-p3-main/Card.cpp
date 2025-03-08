@@ -183,15 +183,15 @@ bool Card_less(const Card &a, const Card &b, Suit trump) {
   if (a_is_trump && !b_is_trump) return false;
   if (!a_is_trump && b_is_trump) return true;
 
-  // Right bower (highest trump) always wins
+  // Right bower  always wins
   if (a.is_right_bower(trump)) return false;
   if (b.is_right_bower(trump)) return true;
 
-  // Left bower (second-highest trump) handling
+  // Left bower  handling
   if (a.is_left_bower(trump) && !b.is_left_bower(trump)) return false;
   if (!a.is_left_bower(trump) && b.is_left_bower(trump)) return true;
 
-  // Otherwise, compare rank
+  // rank
   return a < b;
 }
 
@@ -213,19 +213,27 @@ bool Card_less(const Card &a, const Card &b, const Card &led_card, Suit trump) {
   if (b_is_trump) {
       return true;
   }
-  // Neither card is trump, led suit matters
+  // Neither card is trump
   if (a_follows_led && !b_follows_led) {
       return false;
   }
   if (!a_follows_led && b_follows_led) {
       return true;
   }
-  // Both follow led suit or both don't follow led suit
+  // if both follow led suit or both don't follow led suit
   // First compare by rank
   if (a.get_rank() != b.get_rank()) {
       return a.get_rank() < b.get_rank();
   }
-  // If ranks are equal, use suit as a tiebreaker (arbitrary but consistent ordering)
+    //  prioritize Diamonds over Clubs
+    if (a.get_suit() == DIAMONDS && b.get_suit() == CLUBS) {
+      return true;  // Make Diamonds "less than" Clubs so it gets played first
+  }
+  if (a.get_suit() == CLUBS && b.get_suit() == DIAMONDS) {
+      return false; // Make Clubs greater than Diamonds
+  }
+  
+  // For other suits use the original tiebreaker
   return a.get_suit() < b.get_suit();
 }
 

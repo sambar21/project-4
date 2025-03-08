@@ -185,39 +185,41 @@ public:
         hand.push_back(c);
     }
     
-    bool make_trump(const Card &upcard, bool is_dealer,
-                   int round, Suit &order_up_suit) const override {
-        assert(round == 1 || round == 2);
-        print_hand();
-        cout << "Human player " << name << ", please enter a suit, or \"pass\":\n";
-        string decision;
-        cin >> decision;
-        if (decision != "pass") {
-            Suit ordered_up = string_to_suit(decision);
-            if(ordered_up == SPADES) {
-                cout << name << " orders up Spades" << endl;
-                order_up_suit = SPADES;
-                return true;
-            }
-            else if(ordered_up == CLUBS) {
-                cout << name << " orders up Clubs" << endl;
-                order_up_suit = CLUBS;
-                return true;
-            }
-            else if(ordered_up == HEARTS) {
-                cout << name << " orders up Hearts" << endl;
-                order_up_suit = HEARTS;
-                return true;
-            }
-            else if(ordered_up == DIAMONDS) {
-                cout << name << " orders up Diamonds" << endl;
-                order_up_suit = DIAMONDS;
-                return true;
-            }
+    // In the Human class in Player.hpp
+
+bool make_trump(const Card &upcard, bool is_dealer,
+               int round, Suit &order_up_suit) const override {
+    assert(round == 1 || round == 2);
+    print_hand();
+    cout << "Human player " << name << ", please enter a suit, or \"pass\":\n";
+    string decision;
+    cin >> decision;
+    if (decision != "pass") {
+        Suit ordered_up = string_to_suit(decision);
+        if(ordered_up == SPADES) {
+            // Don't print the message here, let euchre.cpp handle it
+            order_up_suit = SPADES;
+            return true;
         }
-        cout << name << " passes" << endl;
-        return false;
+        else if(ordered_up == CLUBS) {
+            // Don't print the message here, let euchre.cpp handle it
+            order_up_suit = CLUBS;
+            return true;
+        }
+        else if(ordered_up == HEARTS) {
+            // Don't print the message here, let euchre.cpp handle it
+            order_up_suit = HEARTS;
+            return true;
+        }
+        else if(ordered_up == DIAMONDS) {
+            // Don't print the message here, let euchre.cpp handle it
+            order_up_suit = DIAMONDS;
+            return true;
+        }
     }
+    // Don't print the "passes" message here, let euchre.cpp handle it
+    return false;
+}
     
     void add_and_discard(const Card &upcard) override {
         assert(hand.size() >= 1);
@@ -261,11 +263,16 @@ private:
     std::string name;
     std::vector<Card> hand;
     
-    void print_hand() const {
-        for (size_t i = 0; i < hand.size(); ++i)
-            cout << "Human player " << name << "'s hand: "
-                 << "[" << i << "] " << hand[i] << "\n";
-    }
+    // Fix the print_hand method to ensure it displays cards correctly
+void print_hand() const {
+    // Make sure hands are sorted properly for display
+    std::vector<Card> sorted_hand = hand;
+    std::sort(sorted_hand.begin(), sorted_hand.end());
+    
+    for (size_t i = 0; i < sorted_hand.size(); ++i)
+        cout << "Human player " << name << "'s hand: "
+             << "[" << i << "] " << sorted_hand[i] << "\n";
+}
 };
 
 Player * Player_factory(const std::string &name, 

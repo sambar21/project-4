@@ -84,11 +84,11 @@ private:
     bool shuffle_on;
     int points_to_win;
     vector<Player*> players;
-    vector<string> player_types; // Store player types to avoid dynamic_cast
+    vector<string> player_types; 
     int dealer_idx;
-    int scores[2]; // Index 0 for team 1, index 1 for team 2
-    int team1_idx[2]; // Player indices for team 1
-    int team2_idx[2]; // Player indices for team 2
+    int scores[2]; 
+    int team1_idx[2];
+    int team2_idx[2]; 
 
     // Play a single hand
     void play_hand(Pack& pack, int hand_num) {
@@ -100,33 +100,33 @@ private:
             pack.shuffle();
         }
         
-        // Announce the hand
+        
         cout << "Hand " << hand_num << endl;
         cout << players[dealer_idx]->get_name() << " deals" << endl;
         
-        // Deal cards to all players
+        
         deal_cards(pack);
         
-        // Turn up a card
+        
         Card upcard = pack.deal_one();
         cout << upcard << " turned up" << endl;
         
-        // Determine trump suit
+       
         Suit order_up_suit;
         int trump_maker_idx = make_trump(upcard, order_up_suit);
         
-        // Play five tricks
-        int tricks_won[2] = {0, 0}; // Tricks won by each team
-        int leader_idx = (dealer_idx + 1) % NUM_PLAYERS; // Left of dealer leads first trick
+        
+        int tricks_won[2] = {0, 0}; 
+        int leader_idx = (dealer_idx + 1) % NUM_PLAYERS; 
         
         for (int trick = 0; trick < HAND_SIZE; ++trick) {
             int winner_idx = play_trick(leader_idx, order_up_suit);
             
-            // Determine which team won the trick
+            
             int winning_team = get_team(winner_idx);
             tricks_won[winning_team]++;
             
-            // Next trick is led by the winner of the current trick
+            
             leader_idx = winner_idx;
         }
         
@@ -142,11 +142,11 @@ private:
                 is_march = true;
             }
         } else {
-            hand_winner = 1 - making_team; // Other team
+            hand_winner = 1 - making_team; 
             is_euchre = true;
         }
         
-        // Print the winners of the hand
+        // Print 
         if (hand_winner == 0) {
             cout << players[team1_idx[0]]->get_name() << " and " 
                  << players[team1_idx[1]]->get_name() << " win the hand" << endl;
@@ -155,7 +155,7 @@ private:
                  << players[team2_idx[1]]->get_name() << " win the hand" << endl;
         }
         
-        // Print if march or euchre occurred
+        // Print  march 
         if (is_march) {
             cout << "march!" << endl;
         } else if (is_euchre) {
@@ -171,7 +171,7 @@ private:
             scores[hand_winner] += POINTS_FOR_WIN;
         }
         
-        // Print scores
+        // Print 
         cout << players[team1_idx[0]]->get_name() << " and " 
              << players[team1_idx[1]]->get_name() << " have " 
              << scores[0] << " points" << endl;
@@ -180,17 +180,17 @@ private:
              << scores[1] << " points" << endl;
         cout << endl;
         
-        // Update dealer for next hand
+        // Update dealer 
         dealer_idx = (dealer_idx + 1) % NUM_PLAYERS;
     }
 
     // Deal cards to all players
     void deal_cards(Pack& pack) {
-        // Use arrays to define the deal pattern for better readability
+        
         const int first_deal[NUM_PLAYERS] = {3, 2, 3, 2};
         const int second_deal[NUM_PLAYERS] = {2, 3, 2, 3};
         
-        // First round of dealing
+        // First round 
         for (int i = 0; i < NUM_PLAYERS; ++i) {
             int player_idx = (dealer_idx + 1 + i) % NUM_PLAYERS;
             for (int j = 0; j < first_deal[i]; ++j) {
@@ -198,7 +198,7 @@ private:
             }
         }
         
-        // Second round of dealing
+        // Second round 
         for (int i = 0; i < NUM_PLAYERS; ++i) {
             int player_idx = (dealer_idx + 1 + i) % NUM_PLAYERS;
             for (int j = 0; j < second_deal[i]; ++j) {
@@ -207,9 +207,9 @@ private:
         }
     }
 
-    // Make trump - returns the index of the player who called trump
+    
     int make_trump(const Card& upcard, Suit& order_up_suit) {
-        // First round - everyone gets a chance to order up the upcard suit
+        // First round  everyone gets a chance to order up the upcard suit
         for (int i = 0; i < NUM_PLAYERS; ++i) {
             int player_idx = (dealer_idx + 1 + i) % NUM_PLAYERS;
             bool is_dealer = (player_idx == dealer_idx);
@@ -221,14 +221,14 @@ private:
                 // Dealer picks up the upcard
                 players[dealer_idx]->add_and_discard(upcard);
                 
-                cout << endl; // Extra newline after making trump is complete
-                return player_idx; // Return index of player who ordered up
+                cout << endl; 
+                return player_idx; 
             } else {
                 cout << players[player_idx]->get_name() << " passes" << endl;
             }
         }
         
-        // Second round - everyone gets a chance to pick a different suit
+        // Second round  everyone gets a chance to pick a different suit
         for (int i = 0; i < NUM_PLAYERS; ++i) {
             int player_idx = (dealer_idx + 1 + i) % NUM_PLAYERS;
             bool is_dealer = (player_idx == dealer_idx);
@@ -237,19 +237,19 @@ private:
                 cout << players[player_idx]->get_name() << " orders up " 
                      << order_up_suit << endl;
                 
-                cout << endl; // Extra newline after making trump is complete
-                return player_idx; // Return index of player who ordered up
+                cout << endl; 
+                return player_idx; 
             } else {
                 cout << players[player_idx]->get_name() << " passes" << endl;
             }
         }
         
-        // This should never happen with the current rules, but added for safety
+        
         assert(false);
         return -1;
     }
 
-    // Play a single trick - returns the index of the winner
+    // Play a single trick
     int play_trick(int leader_idx, Suit trump) {
         Card led_card;
         Card played_cards[NUM_PLAYERS];
@@ -282,14 +282,14 @@ private:
             }
         }
         
-        // Announce the winner
+        
         cout << players[winner_idx]->get_name() << " takes the trick" << endl;
-        cout << endl; // Extra newline after the trick
+        cout << endl; 
         
         return winner_idx;
     }
 
-    // Helper to determine which team a player is on (0 for team1, 1 for team2)
+    
     int get_team(int player_idx) {
         if (player_idx == team1_idx[0] || player_idx == team1_idx[1]) {
             return 0;
@@ -343,12 +343,12 @@ int main(int argc, char **argv) {
         return 1;
     }
     
-    // Extract player names and types
+    // Extract player names  types
     for (int i = 0; i < 4; ++i) {
         player_names.push_back(argv[4 + i * 2]);
         player_types.push_back(argv[5 + i * 2]);
         
-        // Check if player type is valid
+        // Check if  valid
         if (player_types[i] != "Simple" && player_types[i] != "Human") {
             cout << "Usage: euchre.exe PACK_FILENAME [shuffle|noshuffle] "
                  << "POINTS_TO_WIN NAME1 TYPE1 NAME2 TYPE2 NAME3 TYPE3 "
@@ -363,7 +363,7 @@ int main(int argc, char **argv) {
         cout << "Error opening " << pack_filename << endl;
         return 1;
     }
-    pack_file.close(); // Close it for now, it will be reopened in the Game constructor
+    pack_file.close(); 
     
     // Create player objects
     vector<Player*> players;
@@ -375,7 +375,7 @@ int main(int argc, char **argv) {
     Game game(pack_filename, shuffle_on, points_to_win, players, player_types);
     game.play();
     
-    // Clean up player objects
+    // Clean up 
     for (auto player : players) {
         delete player;
     }
