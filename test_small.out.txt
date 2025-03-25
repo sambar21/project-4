@@ -67,13 +67,13 @@ classifier parameters:
   euchre:would, count = 1, log-likelihood = -1.61
 
 test data:
-correct = euchre, predicted = euchre, log-probability score = -7.42
-content = my code segfaults when bob is the dealer
+  correct = euchre, predicted = euchre, log-probability score = -7.42
+  content = my code segfaults when bob is the dealer
 
-correct = euchre, predicted = calculator, log-probability score = -2.08
-content = no rational explanation for this bug
+  correct = euchre, predicted = calculator, log-probability score = -2.08
+  content = no rational explanation for this bug
 
-correct = calculator, predicted = calculator, log-probability score = -3.18
-content = countif function in stack class not working
+  correct = calculator, predicted = calculator, log-probability score = -3.18
+  content = countif function in stack class not working
 
 performance: 2 / 3 posts predicted correctly

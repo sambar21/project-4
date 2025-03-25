@@ -227,25 +227,26 @@ int main(int argc, char *argv[]) {
             int total_test_posts = 0;
 
             cout << "test data:" << endl;
-            while (test_csvin >> test_row) {
-                string correct_label = test_row["tag"];
-                string content = test_row["content"];
-                
-                string predicted_label = classifier.predict(content);
-                double log_prob_score = classifier.compute_log_probability(
-                    predicted_label, unique_words(content)
-                );
+            
+while (test_csvin >> test_row) {
+    string correct_label = test_row["tag"];
+    string content = test_row["content"];
+    
+    string predicted_label = classifier.predict(content);
+    double log_prob_score = classifier.compute_log_probability(
+        predicted_label, unique_words(content)
+    );
 
-                cout << "correct = " << correct_label 
-                     << ", predicted = " << predicted_label 
-                     << ", log-probability score = " << log_prob_score << endl;
-                cout << "content = " << content << endl << endl;
+    cout << "  correct = " << correct_label  // Note the TWO spaces
+         << ", predicted = " << predicted_label 
+         << ", log-probability score = " << log_prob_score << endl;
+    cout << "  content = " << content << endl << endl;  // TWO spaces here too
 
-                if (predicted_label == correct_label) {
-                    correct_predictions++;
-                }
-                total_test_posts++;
-            }
+    if (predicted_label == correct_label) {
+        correct_predictions++;
+    }
+    total_test_posts++;
+}
 
             cout << "performance: " << correct_predictions 
                  << " / " << total_test_posts << " posts predicted correctly" << endl;
