@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/samba/Documents/EEcs v280/project4(1)/starter-files 3",
+      "program": "/Users/samba/Documents/EEcs v280/project4(1)/starter-files 3/build/Debug/outDebug"
+    }
+  ]
+}
